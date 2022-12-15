@@ -1,0 +1,49 @@
+syntax = "proto3";
+package milvus.proto.feder;
+option go_package = "github.com/milvus-io/milvus-proto/go-api/federpb";
+
+import "common.proto";
+import "schema.proto";
+
+message FederSearchRequest {
+   repeated int64 feder_segments = 1;
+   bool search_total = 2; // default to false
+}
+
+message FederSegmentSearchResult {
+    common.Status status = 1;
+    int64 segmentID = 2;
+    string visit_info = 3; // data from knownwhere
+    repeated int64 offsets = 4;
+    schema.IDs primary_keys = 5;
+}
+
+message FederSearchResult {
+    common.Status status = 1;
+    //segmentID -> FederSegmentSearchResult
+    map<int64, FederSegmentSearchResult> search_views = 2;
+}
+
+message SegmentIndexData {
+    common.Status status = 1;
+    int64 segmentID = 2;
+    int64 rows = 3;
+    uint64 create_time = 4;
+    string index_data = 5; // data from knownwhere
+    repeated int64 offsets = 6;
+    schema.IDs primary_keys = 7;
+}
+
+message DescribeSegmentIndexDataRequest {
+    string collection_name = 1;
+    repeated int64 segmentsIDs = 2;
+}
+
+message DescribeSegmentIndexDataResponse {
+    common.Status status = 1;
+    repeated SegmentIndexData index_datas = 2;
+}
+
+service FederService {
+  rpc FederDescribeSegmentIndexData(DescribeSegmentIndexDataRequest) returns (DescribeSegmentIndexDataResponse) {}
+}

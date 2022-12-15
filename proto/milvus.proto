@@ -758,6 +758,7 @@ message SearchRequest {
   uint64 travel_timestamp = 10;
   uint64 guarantee_timestamp = 11; // guarantee_timestamp
   int64  nq = 12;
+  repeated common.KeyDataPair extra_params = 13;
 }
 
 message Hits {
@@ -770,6 +771,7 @@ message SearchResults {
   common.Status status = 1;
   schema.SearchResultData results = 2;
   string collection_name = 3;
+  repeated common.KeyDataPair extra_datas = 4;
 }
 
 message FlushRequest {
