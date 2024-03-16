@@ -938,6 +938,7 @@ message Hits {
   repeated int64 IDs = 1;
   repeated bytes row_data = 2;
   repeated float scores = 3;
+  repeated float distances = 4;
 }
 
 message SearchResults {
