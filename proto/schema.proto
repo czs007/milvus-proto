@@ -163,7 +163,6 @@ message ValueField {
     double double_data = 5;
     string string_data = 6;
     bytes bytes_data = 7;
-    int64 timestamptz_data = 8; 
   }
 }
 
